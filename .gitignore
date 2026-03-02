@@ -1,0 +1,8 @@
+# Python.
+*__pycache__*
+
+# Editor de código Emacs.
+.projectile
+
+# Servidor de linguagem.
+pyrightconfig.json
