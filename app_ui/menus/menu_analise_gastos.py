@@ -1,11 +1,41 @@
+"""
+Módulo de interface para análise financeira do carrinho.
+
+Este módulo contém a classe MenuAnaliseGastos, que permite calcular totais
+e simular a aplicação de descontos em produtos específicos.
+"""
+
 from backend.carrinho import Carrinho
 from core.criar_menu import Menu, Option, ControladorTela, criar_menu, \
     InteracaoComUsuario
-from core.utils import controlador_tela
 
 
 class MenuAnaliseGastos:
+    """
+    Interface de terminal para cálculos e descontos.
+
+    Fornece ferramentas visuais para o usuário visualizar o custo total da compra
+    e aplicar porcentagens de desconto sobre itens do carrinho.
+
+    Atributos:
+    ----------
+    __controlador : ControladorTela
+        Controlador para operações de tela.
+    __carrinho : Carrinho
+        Instância do carrinho para consulta de valores.
+    __menu : Menu
+        O objeto de menu estruturado com as opções de análise.
+    """
+
     def __init__(self, carrinho:Carrinho) -> None:
+        """
+        Inicializa o menu de análise de gastos.
+
+        Parâmetros:
+        -----------
+        carrinho : Carrinho
+            O objeto carrinho que será analisado.
+        """
         self.__controlador = ControladorTela()
         self.__carrinho = carrinho
         self.__menu = Menu(
@@ -19,14 +49,28 @@ class MenuAnaliseGastos:
 
 
     def iniciar_menu(self):
+        """
+        Inicia o loop de exibição do menu de análise.
+        """
         criar_menu(self.__menu)
         
 
     # Funçõs para as opções de menu.
     def __sair(self):
+        """
+        Sinaliza o encerramento do menu atual.
+
+        Retorna:
+        --------
+        str
+            Sinal de saída (SAIR).
+        """
         return self.__controlador.SAIR
         
     def __calcular_total(self):
+        """
+        Calcula e exibe o custo total dos produtos no carrinho.
+        """
         custo_total = self.__carrinho.calcular_total()
 
         # Formatar custo total para real. (ex: 2,99)
@@ -44,6 +88,9 @@ class MenuAnaliseGastos:
         self.__controlador.esperar_enter()
 
     def __aplicar_desconto(self):
+        """
+        Interage com o usuário para aplicar um desconto a um produto e exibe o resultado.
+        """
         interacao_usuario = InteracaoComUsuario()
 
         # Interação com o usuário.
@@ -74,6 +121,21 @@ class MenuAnaliseGastos:
     # Métodos auxiliares.
     def __validar_desconto_e_produto(self, nome_produto:str,
                                      desconto_em_porcentagem:float) -> bool:
+        """
+        Verifica se o produto existe e se o valor do desconto é válido.
+
+        Parâmetros:
+        -----------
+        nome_produto : str
+            Nome do produto a ser verificado.
+        desconto_em_porcentagem : float
+            Valor da porcentagem (deve estar entre 0 e 100).
+
+        Retorna:
+        --------
+        bool
+            True se os dados forem válidos, False caso contrário.
+        """
         
         produto_existe = self.__carrinho.esta_em_carrinho(nome_produto)
         desconto_esta_correto = 0 <= desconto_em_porcentagem <= 100

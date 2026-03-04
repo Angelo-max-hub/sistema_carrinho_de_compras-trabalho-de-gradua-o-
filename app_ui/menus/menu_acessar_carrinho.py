@@ -1,9 +1,40 @@
+"""
+Módulo de interface para gerenciamento do carrinho.
+
+Este módulo contém a classe MenuCarrinho, que fornece as funcionalidades
+visuais para adicionar, remover e listar produtos no carrinho.
+"""
+
 from core.criar_menu import criar_menu, Menu, Option, ControladorTela, InteracaoComUsuario
 from backend.carrinho import Carrinho, Produto
 
 
 class MenuCarrinho:
+    """
+    Interface de terminal para operações no carrinho de compras.
+
+    Permite que o usuário interaja com o objeto Carrinho através de um menu,
+    facilitando a manutenção dos itens da compra.
+
+    Atributos:
+    ----------
+    __carrinho : Carrinho
+        Instância do carrinho que será manipulada.
+    __controlador : ControladorTela
+        Controlador para operações de tela.
+    __menu : Menu
+        O objeto de menu estruturado com as opções do carrinho.
+    """
+
     def __init__(self, carrinho:Carrinho) -> None:
+        """
+        Inicializa o menu do carrinho com as opções disponíveis.
+
+        Parâmetros:
+        -----------
+        carrinho : Carrinho
+            O objeto carrinho que receberá as operações.
+        """
         self.__carrinho:Carrinho = carrinho
         self.__controlador = ControladorTela()
         
@@ -20,13 +51,27 @@ class MenuCarrinho:
         )
 
     def iniciar_menu(self):
+        """
+        Inicia o loop de exibição do menu do carrinho.
+        """
         criar_menu(self.__menu)
         
             
     def __sair(self):
+        """
+        Sinaliza o encerramento do menu atual.
+
+        Retorna:
+        --------
+        str
+            Sinal de saída (SAIR).
+        """
         return self.__controlador.SAIR
 
     def __adicionar_novo_produto(self):
+        """
+        Solicita dados ao usuário e adiciona um novo produto ao carrinho.
+        """
         interacao = InteracaoComUsuario()
 
         # Interagir com o usuário.
@@ -41,6 +86,9 @@ class MenuCarrinho:
         self.__controlador.esperar(2)
         
     def __ver_produtos(self):
+        """
+        Exibe a lista de todos os produtos atualmente no carrinho.
+        """
         print("Produtos adicionados ao carrinho:", end="\n\n")
 
         for produto in self.__carrinho.lista_de_produtos:
@@ -49,6 +97,9 @@ class MenuCarrinho:
         self.__controlador.esperar_enter()
         
     def __remover_produto(self):
+        """
+        Solicita o nome de um produto e o remove do carrinho, se existir.
+        """
         interacao = InteracaoComUsuario()
 
         # Entrada de dados..

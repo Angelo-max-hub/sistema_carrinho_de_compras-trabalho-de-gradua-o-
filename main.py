@@ -1,3 +1,10 @@
+"""
+Ponto de entrada principal do sistema de carrinho de compras.
+
+Este script é responsável por inicializar a aplicação e disparar
+o menu principal da interface de usuário.
+"""
+
 from app_ui.ui import MenuPrincipal
 
 # Usa a interface fornecida pelo arquivo app_ui/ui.py, que cria e gerencia
