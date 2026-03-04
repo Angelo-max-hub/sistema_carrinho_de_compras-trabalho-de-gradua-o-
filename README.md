@@ -17,6 +17,7 @@ As classes principais do trabalho estão no diretório **"backend/"**, isto é, 
 A seguir, mais sobre a implementação, arquitetura, instalação e uso do sistema, que, aliás,
 não possui interface gráfica.
 
+![menu-principal-sistema](imagens/menu_principal.png "Menu principal do sistema de carrinho")
 ## Como instalar e usar.
 A instalação é a maneira padrão de realizar isso no git hub: através de um pull ou
 instalando o arquivo ZIP pelo site do GitHub, onde está hospedado este projeto.
@@ -53,7 +54,7 @@ exemplo real da criação de um menu perfeitamente funcional utilizando as abstr
 criei:
 
 ``` python
-self.__menu = Menu(
+menu = Menu(
             opcoes=[
                 Option("Voltar", self.__sair),
                 Option("Adicionar um Produto", self.__adicionar_novo_produto),
@@ -63,6 +64,8 @@ self.__menu = Menu(
             titulo_menu="Carrinho",
             funcao_inicial=None
         )
+		
+criar_menu(menu)
 ```
 
 A implementação dessas abstrações adicionais estão contidas em "\core" e há mais sobre seu
@@ -209,11 +212,11 @@ def sair():
 	
 	return ControladorTela().SAIR
 	
-	menu = Menu([
-		Option("Sair", sair)
-	],
-		titulo_menu="Saia do menu"
-		)
+menu = Menu([
+	Option("Sair", sair)
+],
+	titulo_menu="Saia do menu"
+)
 ```
 
 ## Usando "ControladorTela" e "InteraçãoComUsuario".
